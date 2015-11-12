@@ -37,10 +37,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
             let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! NSDictionary
-            self.photos = (((json["data"] as? NSArray)?[0] as? NSDictionary)?["likes"] as? NSDictionary)?["data"] as! [NSDictionary]
-            
-            
-            //print("photos", self.photos)
+            self.photos = json["data"] as! [NSDictionary]
             
             //reload tableview
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -61,36 +58,19 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-   {
-   // if  photos = photos {
-        
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return photos.count
-        
-  //  } else {
-        
-     //   return 0
-        
-    //}
-    
-   }
-    
+    }
    
-   
-   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-   {
-    let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell
-    
-    
-    
-    let photo = photos[indexPath.row]
-    
-    
-    
-    let url = NSURL(string: photo.valueForKeyPath("profile_picture") as! String )!
-    //let url = NSURL(string: movie.valueForKeyPath(“posters.thumnail”) as! String )!
-    cell.imgView.setImageWithURL(url)
-    return cell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell
+        let photo = photos[indexPath.row]
+        let url = NSURL(string: ((photo["images"] as? NSDictionary)?["low_resolution"] as? NSDictionary)?["url"] as! String)!
+        cell.imgView.setImageWithURL(url)
+
+        return cell
     }
 
     /*
