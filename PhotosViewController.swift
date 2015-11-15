@@ -8,28 +8,24 @@
 
 import UIKit
 import AFNetworking
-//import UIImageView
+
 
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var photos = [NSDictionary]()
-    
-    
     @IBOutlet var tableView: UITableView!
+    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        // sample code in the Swift class I'm teaching, on making network request to Instagram to get photos
-        // if you like to use Swift's Dictionary data type, you can use: `let photos = [Dictionary<String, AnyObject>]()`
-        
-        
+        // Making network request to Instagram to get photos
         let url = NSURL(string: "https://api.instagram.com/v1/media/popular?client_id=67fbaa3afa9945198b4909aadee317b6")!
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithURL(url) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            
             
             guard error == nil else  {
                 print("error loading from URL", error!)
@@ -72,15 +68,25 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
         return cell
     }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        let photo = photos[indexPath.row]
+        let vc = segue.destinationViewController as! PhotoDetailsViewController
+  
+        vc.photo = photo
+  
+    }    
 
 }

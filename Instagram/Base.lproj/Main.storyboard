@@ -13,11 +13,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoCell" rowHeight="221" id="0vR-Mo-vi8" customClass="PhotoCell" customModule="Instagram" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoCell" rowHeight="221" id="0vR-Mo-vi8" customClass="PhotoCell" customModule="Instagram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="221"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0vR-Mo-vi8" id="vnp-0P-QVq">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="220.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="220.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mS4-Uk-ra9">
@@ -28,6 +28,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imgView" destination="mS4-Uk-ra9" id="6Zy-GJ-lO7"/>
+                                    <segue destination="fcR-HE-dVI" kind="push" id="Vao-u0-RYD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -39,7 +40,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="537" y="287"/>
+            <point key="canvasLocation" x="488" y="287"/>
+        </scene>
+        <!--Photo Details View Controller-->
+        <scene sceneID="Z6j-fR-DPd">
+            <objects>
+                <viewController id="fcR-HE-dVI" customClass="PhotoDetailsViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ggp-Cv-bbF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="7a9-GS-4qs">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="k8l-B6-iBq"/>
+                    <connections>
+                        <outlet property="imgView" destination="7a9-GS-4qs" id="ivf-HH-7M5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Spu-n4-pK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="846" y="287"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xxE-qA-Xgh">
