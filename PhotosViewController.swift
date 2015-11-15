@@ -15,6 +15,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
     var photos = [NSDictionary]()
     @IBOutlet var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
     
         
     override func viewDidLoad() {
@@ -42,11 +43,20 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             
         }
         
+        //Pull to refresh tableView
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView?.addSubview(refreshControl)
+        
         tableView.rowHeight = 320
        
         tableView.dataSource = self
         tableView.delegate = self
+     
+        
         task.resume()
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,10 +82,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
-
     
-    // MARK: - Navigation
-
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func onRefresh() {
+        delay(2, closure: {
+            self.refreshControl.endRefreshing()
+        })
+    }    // MARK: - Navigation
+    
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
